@@ -1,0 +1,10 @@
+{
+  "description": "A fork of the Hide Top Bar extension (https://gitlab.gnome.org/tuxor1337/hidetopbar) with an updated settings UI using libadwaita.",
+  "gettext-domain": "hide-top-bar@jack-baril",
+  "name": "Hide Top Bar",
+  "settings-schema": "org.gnome.shell.extensions.hide-top-bar",
+  "shell-version": ["46", "47", "48", "49", "50"],
+  "url": "https://github.com/jack-baril/gnome-hide-top-bar-extension",
+  "uuid": "hide-top-bar@jack-baril",
+  "version": 1
+}
