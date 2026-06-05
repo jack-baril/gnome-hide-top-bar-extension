@@ -6,5 +6,5 @@
   "shell-version": ["46", "47", "48", "49", "50"],
   "url": "https://github.com/jack-baril/gnome-hide-top-bar-extension",
   "uuid": "hide-top-bar@jack-baril",
-  "version": 1
+  "version": 2
 }
