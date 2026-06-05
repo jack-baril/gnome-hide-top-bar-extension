@@ -85,17 +85,17 @@ export class PanelVisibilityManager {
       trackFullscreen: true,
     });
 
-    this._originalMessageTrayTween = Main.messageTray._tween;
-    Main.messageTray._tween = (actor, state, value, params) => {
-      params.y += this._panelActor.y < 0 ? 0 : this._panelActor.height;
-      this._originalMessageTrayTween.call(
-        Main.messageTray,
-        actor,
-        state,
-        value,
-        params,
-      );
-    };
+    if (Main.messageTray?._bannerBin?.ease) {
+      this._originalMessageTrayEase = Main.messageTray._bannerBin.ease;
+      Main.messageTray._bannerBin.ease = (params) => {
+        if (Object.prototype.hasOwnProperty.call(params, "y")) {
+          params.y += this._panelActor.y < 0 ? 0 : this._panelActor.height;
+        }
+        this._originalMessageTrayEase.apply(Main.messageTray._bannerBin, [
+          params,
+        ]);
+      };
+    }
 
     this._hotCornerActor = this._findHotCornerActor();
 
@@ -181,7 +181,11 @@ export class PanelVisibilityManager {
       searchEntryBin.style = null;
     }
 
-    Main.messageTray._tween = this._originalMessageTrayTween;
+    if (this._originalMessageTrayEase) {
+      Main.messageTray._bannerBin.ease = this._originalMessageTrayEase;
+      this._originalMessageTrayEase = null;
+    }
+
     this.show(0, "destroy");
 
     Main.layoutManager.removeChrome(this._panelActor);
